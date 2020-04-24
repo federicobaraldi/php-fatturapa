@@ -445,7 +445,8 @@ class FatturaPA
         $startXml = substr($newString, strpos($newString, '<?xml '));
 
         preg_match_all('/<\/.+?>/', $startXml, $matches, PREG_OFFSET_CAPTURE);
-        $lastMatch = end($matches[0]);
+        $index = array_search('</p:FatturaElettronica>', array_column($matches[0], '0'));
+        $lastMatch = $matches[0][$index];
         $str = substr($startXml, 0, $lastMatch[1]) . $lastMatch[0];
         $startAll = strpos($str, "<Allegati");
         if ($startAll !== false) {
